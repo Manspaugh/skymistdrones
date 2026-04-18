@@ -1,0 +1,399 @@
+/* ============================================================
+   SkyMist Drones – Responsive Stylesheet
+   Breakpoints match Figma screens:
+     375px  → Mobile (default, mobile-first)
+     640px  → Big Mobile (stacked, wider margins)
+     760px  → Tablet (side-by-side layout begins)
+     960px  → Desktop 2
+     1520px → Full Desktop
+   ============================================================ */
+
+/* ── Reset ─────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Design Tokens ──────────────────────────────────────────── */
+:root {
+  --green:       #1a443d;
+  --yellow:      #ffe54f;
+  --cream:       #fffefa;
+  --border:      #d4d3d0;
+  --placeholder: #69727a;
+  --white:       #ffffff;
+
+  --font-display: 'Lexend Deca', sans-serif;
+  --font-ui:      'Nunito', sans-serif;
+
+  /* Warm depth shadow (from Figma "Warm Shadow / Depth 4") */
+  --shadow-form:
+    0px 24px 36px -15px rgba(50, 40, 30, 0.15),
+    0px 40px 60px -20px rgba(36, 28, 19, 0.12),
+    0px 60px 80px -25px rgba(36, 28, 19, 0.05);
+}
+
+/* ── Base ───────────────────────────────────────────────────── */
+html {
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  height: 100%;
+  background: #1a1208; /* fallback if bg image fails */
+}
+
+/* ── Page shell ─────────────────────────────────────────────── */
+.page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Background ─────────────────────────────────────────────── */
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+.bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Radial vignette: transparent golden center → dark warm edges */
+.bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 229, 79, 0)     0%,
+    rgba(155, 128, 40, 0.25)  50%,
+    rgba(105,  78, 20, 0.375) 75%,
+    rgba(54,   27,  0, 0.5)   100%
+  );
+}
+
+/* ── Hero ───────────────────────────────────────────────────── */
+/* Mobile-first: single column, stacked */
+.hero {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 80px 16px 48px;
+}
+
+/* ── Left column: Logo + Tagline ────────────────────────────── */
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 56px;
+  width: 100%;
+  max-width: 480px;
+}
+
+.logo {
+  display: block;
+  flex-shrink: 0;
+}
+
+.logo img {
+  display: block;
+  width: 267px;
+  max-width: 100%;
+  height: auto;
+}
+
+.tagline-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+}
+
+.tagline {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 1.2;
+  color: var(--yellow);
+  text-align: center;
+}
+
+.tagline-rule {
+  width: 40px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.tagline-body {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28px;
+  color: var(--white);
+  text-align: center;
+}
+
+/* ── Right column: Form ─────────────────────────────────────── */
+.hero-right {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+  max-width: 343px;
+}
+
+/* Form card */
+.form-card {
+  background: var(--cream);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: var(--shadow-form);
+}
+
+.form-headline {
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.4;
+  color: var(--green);
+  text-align: center;
+}
+
+/* Form fields */
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  gap: 16px;
+}
+
+.field input {
+  flex: 1;
+  min-width: 0;
+  height: 44px;
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0 14px;
+  font-family: var(--font-ui);
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #333;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.field input::placeholder {
+  color: var(--placeholder);
+}
+
+.field input:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(26, 68, 61, 0.12);
+}
+
+/* Remove number input spinner */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+input[type="number"] { -moz-appearance: textfield; }
+
+/* CTA button */
+.btn-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 48px;
+  background: var(--green);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+  -webkit-appearance: none;
+}
+
+.btn-submit:hover {
+  background: #1f5248;
+}
+
+.btn-submit:active {
+  transform: scale(0.985);
+}
+
+/* Form description below card */
+.form-desc {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--white);
+}
+
+/* ── Footer ─────────────────────────────────────────────────── */
+.footer {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 16px;
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--white);
+  white-space: nowrap;
+  flex-wrap: wrap;
+}
+
+/* ============================================================
+   640px — Big Mobile: stacked, wider margins, form centered
+   ============================================================ */
+@media (min-width: 640px) {
+  .hero {
+    padding: 80px 80px 60px;
+    gap: 40px;
+  }
+
+  .hero-left {
+    max-width: 480px;
+  }
+
+  .hero-right {
+    max-width: 400px;
+  }
+
+  .footer {
+    padding: 20px 80px;
+  }
+}
+
+/* ============================================================
+   760px — Tablet: two-column side-by-side layout begins
+   Left: 310px  |  40px gap  |  Right: 330px
+   Horizontal padding: 40px each side
+   ============================================================ */
+@media (min-width: 760px) {
+  .hero {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 60px 40px;
+    min-height: calc(100vh - 59px); /* full viewport minus footer */
+    gap: 40px;
+  }
+
+  /* Left column: left-aligned text */
+  .hero-left {
+    flex: 0 0 310px;
+    max-width: none;
+    align-items: flex-start;
+  }
+
+  .tagline-group {
+    align-items: flex-start;
+  }
+
+  .tagline {
+    text-align: left;
+  }
+
+  .tagline-body {
+    text-align: left;
+  }
+
+  .tagline-rule {
+    /* left-aligned by default in flex-start context */
+  }
+
+  /* Right column */
+  .hero-right {
+    flex: 0 0 330px;
+    max-width: none;
+  }
+
+  .footer {
+    padding: 20px 40px;
+  }
+}
+
+/* ============================================================
+   960px — Desktop 2: wider columns
+   Left: 380px  |  40px gap  |  Right: 380px
+   Horizontal padding: 80px each side
+   ============================================================ */
+@media (min-width: 960px) {
+  .hero {
+    padding: 60px 80px;
+  }
+
+  .hero-left {
+    flex: 0 0 380px;
+  }
+
+  .hero-right {
+    flex: 0 0 380px;
+  }
+
+  .footer {
+    padding: 20px 80px;
+  }
+}
+
+/* ============================================================
+   1520px — Full Desktop: maximum layout
+   Left: 480px  |  80px gap  |  Right: 480px
+   Horizontal padding: 240px each side
+   ============================================================ */
+@media (min-width: 1520px) {
+  .hero {
+    padding: 60px 240px;
+    gap: 80px;
+  }
+
+  .hero-left {
+    flex: 0 0 480px;
+  }
+
+  .hero-right {
+    flex: 0 0 480px;
+  }
+
+  .footer {
+    padding: 20px 240px;
+  }
+}
