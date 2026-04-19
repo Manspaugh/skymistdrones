@@ -9,7 +9,9 @@
    ============================================================ */
 
 /* ── Reset ─────────────────────────────────────────────────── */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -17,19 +19,18 @@
 
 /* ── Design Tokens ──────────────────────────────────────────── */
 :root {
-  --green:       #1a443d;
-  --yellow:      #ffe54f;
-  --cream:       #fffefa;
-  --border:      #d4d3d0;
+  --green: #1a443d;
+  --yellow: #ffe54f;
+  --cream: #fffefa;
+  --border: #d4d3d0;
   --placeholder: #69727a;
-  --white:       #ffffff;
+  --white: #ffffff;
 
-  --font-display: 'Lexend Deca', sans-serif;
-  --font-ui:      'Nunito', sans-serif;
+  --font-display: "Lexend", sans-serif;
+  --font-ui: "Lexend", sans-serif;
 
   /* Warm depth shadow (from Figma "Warm Shadow / Depth 4") */
-  --shadow-form:
-    0px 24px 36px -15px rgba(50, 40, 30, 0.15),
+  --shadow-form: 0px 24px 36px -15px rgba(50, 40, 30, 0.15),
     0px 40px 60px -20px rgba(36, 28, 19, 0.12),
     0px 60px 80px -25px rgba(36, 28, 19, 0.05);
 }
@@ -69,17 +70,16 @@ body {
   object-position: center;
 }
 
-/* Radial vignette: transparent golden center → dark warm edges */
+/* Warm dark overlay: base tint for text readability + radial vignette at edges */
 .bg-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(255, 229, 79, 0)     0%,
-    rgba(155, 128, 40, 0.25)  50%,
-    rgba(105,  78, 20, 0.375) 75%,
-    rgba(54,   27,  0, 0.5)   100%
-  );
+  background: linear-gradient(rgba(26, 15, 3, 0.45), rgba(26, 15, 3, 0.45)),
+    radial-gradient(
+      ellipse at center,
+      rgba(255, 229, 79, 0) 0%,
+      rgba(54, 27, 0, 0.35) 100%
+    );
 }
 
 /* ── Hero ───────────────────────────────────────────────────── */
@@ -173,8 +173,8 @@ body {
 
 .form-headline {
   font-family: var(--font-ui);
-  font-weight: 500;
-  font-size: 18px;
+  font-weight: 600;
+  font-size: 16px;
   line-height: 1.4;
   color: var(--green);
   text-align: center;
@@ -225,7 +225,9 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
 }
-input[type="number"] { -moz-appearance: textfield; }
+input[type="number"] {
+  -moz-appearance: textfield;
+}
 
 /* CTA button */
 .btn-submit {
@@ -304,17 +306,16 @@ input[type="number"] { -moz-appearance: textfield; }
 
 /* ============================================================
    760px — Tablet: two-column side-by-side layout begins
-   Left: 310px  |  40px gap  |  Right: 330px
-   Horizontal padding: 40px each side
+   Columns centered with 80px gap
    ============================================================ */
 @media (min-width: 760px) {
   .hero {
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
-    padding: 60px 40px;
-    min-height: calc(100vh - 59px); /* full viewport minus footer */
-    gap: 40px;
+    justify-content: space-around;
+    padding: 60px 20px;
+    min-height: calc(100vh - 59px);
+    gap: 80px;
   }
 
   /* Left column: left-aligned text */
@@ -336,14 +337,31 @@ input[type="number"] { -moz-appearance: textfield; }
     text-align: left;
   }
 
-  .tagline-rule {
-    /* left-aligned by default in flex-start context */
-  }
-
   /* Right column */
   .hero-right {
     flex: 0 0 330px;
     max-width: none;
+  }
+
+  .footer {
+    padding: 20px 20px;
+  }
+}
+
+/* ============================================================
+   960px — Desktop 2: wider columns, centered with 80px gap
+   ============================================================ */
+@media (min-width: 960px) {
+  .hero {
+    padding: 60px 40px;
+  }
+
+  .hero-left {
+    flex: 0 0 380px;
+  }
+
+  .hero-right {
+    flex: 0 0 380px;
   }
 
   .footer {
@@ -352,37 +370,11 @@ input[type="number"] { -moz-appearance: textfield; }
 }
 
 /* ============================================================
-   960px — Desktop 2: wider columns
-   Left: 380px  |  40px gap  |  Right: 380px
-   Horizontal padding: 80px each side
-   ============================================================ */
-@media (min-width: 960px) {
-  .hero {
-    padding: 60px 80px;
-  }
-
-  .hero-left {
-    flex: 0 0 380px;
-  }
-
-  .hero-right {
-    flex: 0 0 380px;
-  }
-
-  .footer {
-    padding: 20px 80px;
-  }
-}
-
-/* ============================================================
-   1520px — Full Desktop: maximum layout
-   Left: 480px  |  80px gap  |  Right: 480px
-   Horizontal padding: 240px each side
+   1520px — Full Desktop: widest columns, centered with 80px gap
    ============================================================ */
 @media (min-width: 1520px) {
   .hero {
-    padding: 60px 240px;
-    gap: 80px;
+    padding: 60px 40px;
   }
 
   .hero-left {
@@ -394,6 +386,6 @@ input[type="number"] { -moz-appearance: textfield; }
   }
 
   .footer {
-    padding: 20px 240px;
+    padding: 20px 40px;
   }
 }
