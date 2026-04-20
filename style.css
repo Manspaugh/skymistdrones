@@ -61,7 +61,7 @@ body {
   z-index: 0;
 }
 
-.bg-video {
+.bg-img {
   position: absolute;
   inset: 0;
   width: 100%;
